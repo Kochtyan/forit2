@@ -131,11 +131,11 @@ function countPoints() {
         y = document.getElementsByName("radio_" + i.toString());
         if (y[1].checked == true) sum += 1;
         if (y[2].checked == true) sum += 2;
-        let thirdCol = document.getElementById("thirdCol0");
-        if (y[3].checked == true && thirdCol.style.display == "block") sum += 3;
+
     }
     sum /= 7;
     y = document.getElementById("point");
+    y.toFixed(3);
     y.innerHTML = sum.toString();
 }
 
