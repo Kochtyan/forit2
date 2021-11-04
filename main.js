@@ -51,7 +51,6 @@ function changeFacAndCrs() {
         y[0].checked = false;
         y[1].checked = false;
         y[2].checked = false;
-        y[3].checked = false;
     }
 
     y = document.getElementById("input_name");
@@ -91,7 +90,6 @@ function changeAll() {
             y[0].checked = false;
             y[1].checked = false;
             y[2].checked = false;
-            y[3].checked = false;
         }
         return;
     }
