@@ -16,5 +16,19 @@
 		<item score="1">Data Bases</item>
 		<item score="2">Physical Education</item>
 	</student>
+	
+	<student>
+		<name>Бахраев Артур</name>
+		<faculty>ИВТ</faculty>
+		<course>2</course>
+		<group>КП-30</group>
+		<item score="1">Metrology</item>
+		<item score="1">OOP</item>
+		<item score="1">CSA</item>
+		<item score="2">Queuing Theory</item>
+		<item score="2">Economy</item>
+		<item score="0">Data Bases</item>
+		<item score="1">Physical Education</item>
+	</student>
 
 </students>
