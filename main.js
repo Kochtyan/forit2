@@ -4,6 +4,7 @@ function openXML() {
     let y;
     let xmlContent = '';
     let i, exist;
+
     fetch('students.xml').then((response) => {
         response.text().then((xml) => {
             xmlContent = xml;
@@ -36,6 +37,8 @@ function openXML() {
 
         });
     });
+  //  document.getElementById('stroka').style.display = "none";
+
 }
 
 function changeFacAndCrs() {
@@ -141,13 +144,10 @@ function deletePoints() {
     document.getElementById("point").innerHTML = "";
 }
 
-function hide() {
 
-}
-document.getElementById('newsubjname').style.display = "none";
-document.getElementById('newsubj').style.display = "none";
+
 function newsubj() {
-
+ //   document.getElementById('stroka').style.display = "block";
     let newsubject = document.getElementById('newsubj').value;
     document.getElementById('newsubjname').innerHTML = newsubject;
 
