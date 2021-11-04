@@ -140,3 +140,6 @@ function deletePoints() {
     document.getElementById("point").innerHTML = "";
 }
 
+function newsubj() {
+
+}
