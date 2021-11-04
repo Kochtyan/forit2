@@ -140,7 +140,7 @@ function countPoints() {
 function deletePoints() {
     document.getElementById("point").innerHTML = "";
 }
-
+document.getElementById('newsubjname').style.display = "block";
 function newsubj() {
     let newsubject = document.getElementById('newsubj').value;
     document.getElementById('newsubjname').innerHTML = newsubject;
