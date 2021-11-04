@@ -143,15 +143,3 @@ function deletePoints() {
     document.getElementById("point").innerHTML = "";
 }
 
-function add_delete_RowPoints() {
-    let thirdCol = [7];
-    for (let i = 0; i < 8; ++i) {
-        thirdCol[i] = document.getElementById("thirdCol" + i);
-    }
-    for (let i = 0; i < 8; ++i) {
-        if (thirdCol[i].style.display == "none")
-            thirdCol[i].style.display = "block";
-        else
-            thirdCol[i].style.display = "none";
-    }
-}
