@@ -37,7 +37,8 @@ function openXML() {
 
         });
     });
-  //  document.getElementById('stroka').style.display = "none";
+    document.getElementById('stroka').style.display = "none";
+
 
 }
 
@@ -128,16 +129,31 @@ function countPoints() {
     let y;
     let sum = 0;
     let i;
-    for (i = 1; i < 8; i++) {
-        y = document.getElementsByName("radio_" + i.toString());
-        if (y[1].checked == true) sum += 1;
-        if (y[2].checked == true) sum += 2;
+    let newsubject = document.getElementById('newsubjtext').value;
+    if (newsubject != "") {
+        for (i = 1; i < 9; i++) {
+            y = document.getElementsByName("radio_" + i.toString());
+            if (y[1].checked == true) sum += 1;
+            if (y[2].checked == true) sum += 2;
 
+        }
+        sum /= 8;
+        sum = sum.toFixed(3);
+        y = document.getElementById("point");
+        y.innerHTML = sum.toString();
     }
-    sum /= 7;
-    sum = sum.toFixed(3);
-    y = document.getElementById("point");
-    y.innerHTML = sum.toString();
+    else {
+        for (i = 1; i < 8; i++) {
+            y = document.getElementsByName("radio_" + i.toString());
+            if (y[1].checked == true) sum += 1;
+            if (y[2].checked == true) sum += 2;
+
+        }
+        sum /= 7;
+        sum = sum.toFixed(3);
+        y = document.getElementById("point");
+        y.innerHTML = sum.toString();
+    }
 }
 
 function deletePoints() {
@@ -147,8 +163,14 @@ function deletePoints() {
 
 
 function newsubj() {
- //   document.getElementById('stroka').style.display = "block";
-    let newsubject = document.getElementById('newsubj').value;
-    document.getElementById('newsubjname').innerHTML = newsubject;
 
+    let newsubject = document.getElementById('newsubjtext').value;
+    if (newsubject != "") {
+        document.getElementById('stroka').style.display = "table-row";
+        document.getElementById('newsubjname').innerHTML = newsubject;
+        document.getElementById('po').innerHTML = "";
+    }
+    else {
+        document.getElementById('po').innerHTML = "Напишите предмет";
+    }
 }

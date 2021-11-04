@@ -30,5 +30,18 @@
 		<item score="0">Data Bases</item>
 		<item score="1">Physical Education</item>
 	</student>
+	<student>
+		<name>Беляев Дмитрий</name>
+		<faculty>МРМ</faculty>
+		<course>4</course>
+		<group>ДЕ-01</group>
+		<item score="0">Metrology</item>
+		<item score="1">OOP</item>
+		<item score="2">CSA</item>
+		<item score="1">Queuing Theory</item>
+		<item score="0">Economy</item>
+		<item score="2">Data Bases</item>
+		<item score="2">Physical Education</item>
+	</student>
 
 </students>
