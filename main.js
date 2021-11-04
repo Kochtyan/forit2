@@ -141,6 +141,9 @@ function deletePoints() {
     document.getElementById("point").innerHTML = "";
 }
 
+function hide() {
+    document.getElementById('newsubjname').style.visibility = 'hidden';
+}
 
 function newsubj() {
     let newsubject = document.getElementById('newsubj').value;
