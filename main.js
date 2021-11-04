@@ -143,6 +143,6 @@ function deletePoints() {
 
 function newsubj() {
     let newsubject = document.getElementById('newsubj').value;
-    document.getElementById('po').innerHTML = newsubject;
+    document.getElementById('newsubjname').value = newsubject;
 
 }
