@@ -1,235 +1,120 @@
 <!DOCTYPE html>
+<html>
 
-<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <style>
-        .exercise10 .task1 .table {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            border: 1px solid lightgray;
-            margin-top: 20px;
-        }
+    <meta charset="utf-8">
+    <title>XML</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            .exercise10 .task1 .table .row {
-                display: flex;
-                justify-content: space-between;
-                padding: 20px 0;
-            }
-
-                .exercise10 .task1 .table .row.header {
-                    background-color: lightgray;
-                }
-
-                .exercise10 .task1 .table .row .cell {
-                    width: 25%;
-                }
-    </style>
-    <script type="text/javascript">
-let res = 0;
-count = 0;
-
-function calculateAverage() {
-    count = 0;
-    res = 0;
-    document.querySelectorAll(".exercise10 .task1 .table input").forEach((item) => {
-        count++;
-        if (item.checked) {
-            res += Number(item.value);
-        }
-    })
-    document.querySelector("#resSpan").innerHTML = "Cредний балл: " + res / (count / 3);
-}
-
-function updateListeners() {
-    document.querySelectorAll(".exercise10 .task1 .table input").forEach((elem) => {
-        elem.addEventListener('change', calculateAverage);
-    })
-}
-
-
-
-function getXMLDocument(url) {
-    let xml;
-    if (window.XMLHttpRequest) {
-        xml = new window.XMLHttpRequest();
-        xml.open("GET", url, false);
-        xml.send("");
-        return xml.responseXML;
-    }
-    else
-        if (window.ActiveXObject) {
-            xml = new ActiveXObject("Microsoft.XMLDOM");
-            xml.async = false;
-            xml.load(url);
-            return xml;
-        }
-        else {
-            alert("Загрузка XML не поддерживается браузером");
-            return null;
-        }
-}
-
-let facultetInput = document.querySelector('#XMLfacultet');
-let courceInput = document.querySelector('#XMLcource');
-let groupSelect = document.querySelector('#XMLgroup');
-let nameSelect = document.querySelector('#XMLname');
-let xml = getXMLDocument("source/students.xml");
-let groups = xml.getElementsByTagName('group');
-let table = document.querySelector('.exercise10 .task1 .table');
-
-function fillGroups() {
-
-    for (let i = 0; i < groups.length; i++) {
-        let option = document.createElement('option');
-        let group = groups[i].getElementsByTagName('name')[0].innerHTML;
-        option.innerHTML = group;
-        option.value = group;
-        groupSelect.append(option);
-    }
-}
-
-function fillNames(group) {
-    while (nameSelect.firstChild) {
-        nameSelect.firstChild.remove();
-    }
-    for (let i = 0; i < groups.length; i++) {
-        if (groups[i].getElementsByTagName('name')[0].innerHTML == group) {
-            let students = groups[i].getElementsByTagName('student');
-            for (let j = 0; j < students.length; j++) {
-                let option = document.createElement('option');
-                let name = students[j].getElementsByTagName('name')[0].innerHTML;
-                option.innerHTML = name;
-                option.value = name;
-                nameSelect.append(option);
-            }
-            break;
-        }
-    }
-}
-
-function setFacultet(group) {
-    for (let i = 0; i < groups.length; i++) {
-        if (groups[i].getElementsByTagName('name')[0].innerHTML == group) {
-            facultetInput.value = groups[i].getElementsByTagName('facultet')[0].innerHTML;
-            break;
-        }
-    }
-}
-
-function setCource(group) {
-    for (let i = 0; i < groups.length; i++) {
-        if (groups[i].getElementsByTagName('name')[0].innerHTML == group) {
-            courceInput.value = groups[i].getElementsByTagName('cource')[0].innerHTML;
-            break;
-        }
-    }
-}
-
-function fillSubjects(group) {
-    table.querySelectorAll('.row:not(.header)').forEach(elem => {
-        elem.remove();
-    });
-    for (let i = 0; i < groups.length; i++) {
-        if (groups[i].getElementsByTagName('name')[0].innerHTML == group) {
-            let subjects = groups[i].getElementsByTagName('subject');
-            for (let i = 0; i < subjects.length; i++) {
-                let row = document.createElement('div');
-                row.classList.add('row');
-                let cell = document.createElement('div');
-                cell.classList.add('cell');
-                cell.innerHTML = subjects[i].getElementsByTagName('name')[0].innerHTML;
-                row.append(cell);
-
-                for (let j = 0; j < 3; j++) {
-                    let radio = document.createElement('div');
-                    radio.classList.add('cell');
-
-                    let input = document.createElement('input');
-                    input.setAttribute('type', 'radio');
-                    input.value = j;
-                    input.setAttribute('name', cell.innerHTML);
-                    radio.append(input);
-                    row.append(radio);
-                }
-
-
-                table.append(row);
-            }
-            break;
-        }
-    }
-    updateListeners();
-}
-
-function fillMarks(group, name) {
-    for (let i = 0; i < groups.length; i++) {
-        if (groups[i].getElementsByTagName('name')[0].innerHTML == group) {
-
-            let students = groups[i].getElementsByTagName('student');
-
-            for (let j = 0; j < students.length; j++) {
-                if (students[j].firstElementChild.innerHTML == name) {
-                    let marks = students[j].getElementsByTagName('mark');
-                    let cells = table.querySelectorAll('.row:not(.header)');
-                    for (let z = 0; z < marks.length; z++) {
-                        cells[z].querySelectorAll('input')[Number(marks[z].innerHTML)].checked = true;
-                        calculateAverage();
-                    }
-
-                    break;
-                }
-            }
-        }
-    }
-}
-
-fillGroups();
-groupSelect.addEventListener('change', (event) => {
-    fillNames(groupSelect.value);
-    setFacultet(groupSelect.value);
-    setCource(groupSelect.value);
-    fillSubjects(groupSelect.value);
-    fillMarks(groupSelect.value, nameSelect.value);
-})
-
-nameSelect.addEventListener('change', (event) => {
-    fillMarks(groupSelect.value, nameSelect.value);
-})
-    </script>
-</head>
-<body>
-    <div class="exercise exercise10">
-        <div class="task task1">
-            <div class="form">
-                <span>Факультет</span>
-                <input type="text" id="XMLfacultet">
-                <span>Курс</span>
-                <input type="text" id="XMLcource">
-                <span>Группа</span>
-                <select name="" id="XMLgroup">
-                    <option value="0">Выбрать...</option>
-                    <option value="0">Выбрать...</option>
-                </select>
-                <span>ФИО</span>
-                <select name="" id="XMLname">
-                    <option value="">Выбрать...</option>
-                </select>
-            </div>
-            <div class="table">
-                <div class="row header">
-                    <div class="cell">Предмет</div>
-                    <div class="cell">0</div>
-                    <div class="cell">1</div>
-                    <div class="cell">2</div>
-                </div>
-            </div>
-            <span id="resSpan"></span>
-        </div>
-    </div>
-    </div>
     <script src="main.js"></script>
+</head>
+
+<body onload="openXML()">
+    <div class="input_row">
+
+        <p>Факультет:&nbsp;</p>
+        <input type=text id="input_faculty" class="input_faculty" readonly>
+
+        <p>Курс:&nbsp;</p>
+        <input type=text id="input_course" class="input_course" readonly>
+
+        <p>Группа:&nbsp;</p>
+        <select id="input_group" class="input_group" onchange="changeFacAndCrs()">
+            <option value="">&nbsp;</option>
+        </select>
+
+        <p>ФИО:&nbsp;</p>
+        <select id="input_name" class="input_name" onchange="changeAll()">
+            <option value="">&nbsp;</option>
+        </select>
+
+    </div>
+    <p><span id="name"></span></p>
+    <table border=3 width=32% class="table">
+        <tr>
+            <td width=80%>Предмет</td>
+            <td width=7%>0</td>
+            <td width=7%>1</td>
+            <td width=7%>2</td>
+            <td width=7% id="thirdCol0">3</td>
+        </tr>
+        <tr>
+            <td width=80%>Метрология, Стандартизация и Сертификация</td>
+            <form>
+                <td><input name="radio_1" type=radio></td>
+                <td><input name="radio_1" type=radio></td>
+                <td><input name="radio_1" type=radio></td>
+                <td><input name="radio_1" id="thirdCol1" type=radio></td>
+            </form>
+        </tr>
+        <tr>
+            <td width=80%>Объектно Ориентированное Программирование</td>
+            <form>
+                <td><input name="radio_2" type=radio></td>
+                <td><input name="radio_2" type=radio></td>
+                <td><input name="radio_2" type=radio></td>
+                <td><input name="radio_2" id="thirdCol2" type=radio></td>
+            </form>
+        </tr>
+        <tr>
+            <td width=80%>Архитектура Вычислительных Систем</td>
+            <form>
+                <td><input name="radio_3" type=radio></td>
+                <td><input name="radio_3" type=radio></td>
+                <td><input name="radio_3" type=radio></td>
+                <td><input name="radio_3" id="thirdCol3" type=radio></td>
+            </form>
+        </tr>
+        <tr>
+            <td width=80%>Теория Массового Обслуживания</td>
+            <form>
+                <td><input name="radio_4" type=radio></td>
+                <td><input name="radio_4" type=radio></td>
+                <td><input name="radio_4" type=radio></td>
+                <td><input name="radio_4" id="thirdCol4" type=radio></td>
+            </form>
+        </tr>
+        <tr>
+            <td width=80%>Экономика</td>
+            <form>
+                <td><input name="radio_5" type=radio></td>
+                <td><input name="radio_5" type=radio></td>
+                <td><input name="radio_5" type=radio></td>
+                <td><input name="radio_5" id="thirdCol5" type=radio></td>
+            </form>
+        </tr>
+        <tr>
+            <td width=80%>Базы Данных</td>
+            <form>
+                <td><input name="radio_6" type=radio></td>
+                <td><input name="radio_6" type=radio></td>
+                <td><input name="radio_6" type=radio></td>
+                <td><input name="radio_6" id="thirdCol6" type=radio></td>
+            </form>
+        </tr>
+        <tr>
+            <td width=80%>Физическая Культура</td>
+            <form>
+                <td><input name="radio_7" type=radio></td>
+                <td><input name="radio_7" type=radio></td>
+                <td><input name="radio_7" type=radio></td>
+                <td><input name="radio_7" id="thirdCol7" type=radio></td>
+            </form>
+        </tr>
+    </table>
+    <p style="font-family:Calibri; border-radius:15px">Средний балл за контрольный срок составляет&nbsp;<span id="point"></span></p>
+    <div>
+        <input class="button" type=button value="Выполнить" onclick="countPoints()">
+        <input class="button" type=button value="Отменить" onclick="deletePoints()">
+        <input class="button" type=button value="Добавить/удалить столбец" onclick="add_delete_RowPoints()">
+    </div>
+    <div>
+        <span id="span1" class="menu_span1" style="display:none">
+            <a class=" menu_hidden_link">subMenu1</a>
+            <a class="menu_hidden_link">subMenu2</a>
+            <a class="menu_hidden_link">subMenu3</a>
+        </span>
+    </div>
 </body>
+
 </html>
