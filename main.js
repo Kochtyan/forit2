@@ -132,6 +132,7 @@ function countPoints() {
 
     }
     sum /= 7;
+    sum = sum.toFixed(3);
     y = document.getElementById("point");
     y.innerHTML = sum.toString();
 }
@@ -141,5 +142,7 @@ function deletePoints() {
 }
 
 function newsubj() {
+    let newsubject = document.getElementById('newsubj').value;
+    document.getElementById('po').innerHTML = newsubject;
 
 }
