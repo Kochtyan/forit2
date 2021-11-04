@@ -135,7 +135,6 @@ function countPoints() {
     }
     sum /= 7;
     y = document.getElementById("point");
-    y = y.toFixed(3);
     y.innerHTML = sum.toString();
 }
 
