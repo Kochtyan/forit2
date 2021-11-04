@@ -142,12 +142,13 @@ function deletePoints() {
 }
 
 function hide() {
-    document.getElementById('newsubjname').style.display = 'none';
-    document.getElementById('newsubj').style.display = 'none';
+    document.getElementById('newsubjname').style.display = "none";
+    document.getElementById('newsubj').style.display = "none";
 }
 
 function newsubj() {
+
     let newsubject = document.getElementById('newsubj').value;
     document.getElementById('newsubjname').innerHTML = newsubject;
-    document.getElementById('newsubjname').style.display = "block";
+
 }
